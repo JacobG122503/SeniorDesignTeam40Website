@@ -1,16 +1,37 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
+
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" @ref="@_mudThemeProvider" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <MudText Typo="Typo.h5" Class="ml-3">Senior Design Team 40 - True Force Technologies Arcade Rack</MudText>
+        <MudSpacer />
+        <MudIconButton Icon="@(_isDarkMode? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@_drawerOpen" Breakpoint="Breakpoint.Lg" Elevation="12" ClipMode="@DrawerClipMode.Docked" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" MiniWidth="62px">
         <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+    </MudDrawer>
+    <MudMainContent>
+        <div class="pa-4">
             @Body
-        </article>
-    </main>
-</div>
+        </div>
+    </MudMainContent>
+</MudLayout>
+
+@code {
+    private bool _drawerOpen;
+    private void DrawerToggle() => _drawerOpen = !_drawerOpen;
+
+    private readonly MudTheme _theme = new();
+    private MudThemeProvider _mudThemeProvider = new();
+    private bool _isDarkMode;
+
+    private void DarkModeToggle()
+    {
+        _isDarkMode = !_isDarkMode;
+        StateHasChanged();
+    }
+}
