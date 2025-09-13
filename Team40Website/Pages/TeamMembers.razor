@@ -1,9 +1,68 @@
 ﻿@page "/team"
 
-
 <PageTitle>sdmay26-40 - Team Members</PageTitle>
+
+<MudContainer>
+
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">sdmay26-40 Team Members</MudText>
+
+    <MudGrid Justify="Justify.Center" Class="mt-4">
+        @foreach (var member in _teamMembers.Take(4))
+        {
+            <MudItem xs="12" sm="6" md="3">
+                <MudCard Elevation="25" Class="ma-2">
+                    <MudCardMedia Image="@member.ImageUrl" Height="250" />
+                    <MudCardContent Class="text-center">
+                        <MudText Typo="Typo.h5">@member.Name</MudText>
+                        <MudText Typo="Typo.subtitle1" Color="Color.Secondary">@member.Role</MudText>
+                        <MudText Typo="Typo.body2" Class="mt-2">@member.Bio</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+
+    <MudGrid Justify="Justify.Center">
+        @foreach (var member in _teamMembers.Skip(4))
+        {
+            <MudItem xs="12" sm="6" md="3">
+                <MudCard Elevation="25" Class="ma-2">
+                    <MudCardMedia Image="@member.ImageUrl" Height="250" />
+                    <MudCardContent Class="text-center">
+                        <MudText Typo="Typo.h5">@member.Name</MudText>
+                        <MudText Typo="Typo.subtitle1" Color="Color.Secondary">@member.Role</MudText>
+                        <MudText Typo="Typo.body2" Class="mt-2">@member.Bio</MudText>
+                    </MudCardContent>
+                </MudCard>
+            </MudItem>
+        }
+    </MudGrid>
+
+</MudContainer>
 
 
 @code {
+    private List<TeamMember> _teamMembers = new();
 
+    protected override void OnInitialized()
+    {
+        _teamMembers = new List<TeamMember>
+        {
+            new TeamMember { Name = "Jacob Garcia", Role = "Software Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member one goes here." },
+            new TeamMember { Name = "Parnika Dasgupta", Role = "Computer Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member two goes here." },
+            new TeamMember { Name = "Dylan Longlett", Role = "Software Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member three goes here." },
+            new TeamMember { Name = "Andy Drafahl", Role = "Software Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member four goes here." },
+            new TeamMember { Name = "Sofi Gutierrez", Role = "Computer Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member five goes here." },
+            new TeamMember { Name = "Colin Yuska", Role = "Electrical Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member six goes here." },
+            new TeamMember { Name = "Fadi Masannat", Role = "Software Engineer", ImageUrl = "images/blank-profile.png", Bio = "Bio for member seven goes here." }
+        };
+    }
+
+    public class TeamMember
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;
+        public string Bio { get; set; } = string.Empty;
+    }
 }
