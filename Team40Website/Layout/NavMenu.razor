@@ -1,20 +1,9 @@
 ﻿
 <MudNavMenu>
     <MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home">Home</MudNavLink>
-    <MudNavLink Href="counter" Icon="@Icons.Material.Filled.Groups">Team Members</MudNavLink>
-    <MudNavLink Href="weather" Icon="@Icons.Material.Filled.Newspaper">Weekly Reports</MudNavLink>
-    <MudNavLink Href="weather" Icon="@Icons.Material.Filled.FindInPage">Design Documents</MudNavLink>
+    <MudNavLink Href="team" Icon="@Icons.Material.Filled.Groups">Team Members</MudNavLink>
+    <MudNavLink Href="reports" Icon="@Icons.Material.Filled.Newspaper">Weekly Reports</MudNavLink>
+    <MudNavLink Href="docs" Icon="@Icons.Material.Filled.FindInPage">Design Documents</MudNavLink>
     <MudNavLink Href="https://git.ece.iastate.edu/sd/sdmay26-40" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Filled.Code">Project Repository</MudNavLink>
     <MudNavLink Href="https://github.com/JacobG122503/SeniorDesignTeam40Website" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Filled.Web">Website Repository</MudNavLink>
 </MudNavMenu>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}

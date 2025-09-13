@@ -1,12 +1,14 @@
 ﻿@inherits LayoutComponentBase
+@inject ILocalStorageService LocalStorage
 
-<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_theme" @ref="@_mudThemeProvider" />
+<MudThemeProvider @bind-IsDarkMode="@_isDarkMode" Theme="_customTheme" @ref="@_mudThemeProvider" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar>
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@((e) => DrawerToggle())" />
+        <img src="images/ISULogo.png" alt="ISU Logo" style="height: 40px;" />
         <MudText Typo="Typo.h5" Class="ml-3">Senior Design Team 40 - True Force Technologies Arcade Rack</MudText>
         <MudSpacer />
         <MudIconButton Icon="@(_isDarkMode? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
@@ -25,13 +27,33 @@
     private bool _drawerOpen;
     private void DrawerToggle() => _drawerOpen = !_drawerOpen;
 
-    private readonly MudTheme _theme = new();
     private MudThemeProvider _mudThemeProvider = new();
     private bool _isDarkMode;
 
-    private void DarkModeToggle()
+    private MudTheme _customTheme = new MudTheme()
+    {
+        PaletteLight = new PaletteLight()
+        {
+            AppbarBackground = "#C8102E",
+			Primary = "#C8102E",
+        },
+        PaletteDark = new PaletteDark()
+        {
+            AppbarBackground = "#C8102E",
+            Primary = "#C8102E",
+        }
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        var savedPreference = await LocalStorage.GetItemAsync<bool?>("darkMode");
+
+        _isDarkMode = savedPreference ?? false;
+    }
+
+    private async Task DarkModeToggle()
     {
         _isDarkMode = !_isDarkMode;
-        StateHasChanged();
+        await LocalStorage.SetItemAsync("darkMode", _isDarkMode);
     }
 }
