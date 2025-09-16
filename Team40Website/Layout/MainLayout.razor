@@ -14,7 +14,7 @@
         <MudIconButton Icon="@(_isDarkMode? Icons.Material.Filled.LightMode : Icons.Material.Filled.DarkMode)" Color="Color.Inherit" OnClick="@DarkModeToggle" />
     </MudAppBar>
     <MudDrawer @bind-Open="@_drawerOpen" Breakpoint="Breakpoint.Lg" Elevation="12" ClipMode="@DrawerClipMode.Docked" Variant="@DrawerVariant.Mini" OpenMiniOnHover="true" MiniWidth="62px">
-        <NavMenu />
+        <NavMenu IsDrawerOpen="@_drawerOpen" />
     </MudDrawer>
     <MudMainContent>
         <div class="pa-4">
