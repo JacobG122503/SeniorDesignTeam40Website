@@ -361,4 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+Team40Website/wwwroot/images/.DS_Store
+.gitignore
+Team40Website/wwwroot/images/Teammates/.DS_Store
 /deploy.ps1
