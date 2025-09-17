@@ -1,10 +1,24 @@
 ﻿@page "/"
 
-@* 
-dotnet watch run
-dotnet publish -c Release 
-*@
-
 <PageTitle>sdmay26-40 - Home</PageTitle>
 
-<h1>Project Overview</h1>
+<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="mt-4">
+    <MudPaper Class="pa-4">
+        <MudText Typo="Typo.h4" GutterBottom="true">Project Overview</MudText>
+
+        <MudText Class="mb-3">
+            Our team is partnering with Strength Technologies LLC to expand their innovative "Force Rack" technology beyond the weight
+            room and into a fun, interactive setting. The current Force Rack uses a barbell with load cells to convert a user's
+            isometric force into digital data for strength training exercises. Our mission is to transform this hardware into an
+            engaging, arcade-style game that challenges users with entertaining physical contests.
+        </MudText>
+
+        <MudText>
+            This project will require a blend of application design, embedded systems programming, and PCB design to develop a hardware proof of concept
+            with supporting firmware. A key part of our work will be creating compelling ways to visualize user data and interact
+            with the device. Using resources provided by the client, including the existing code base and hardware, we will
+            deliver a fully working prototype by the end of the two semesters that successfully converts the True Force Rack
+            into a complete arcade experience.
+        </MudText>
+    </MudPaper>
+</MudContainer>
