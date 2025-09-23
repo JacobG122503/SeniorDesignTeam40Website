@@ -2,7 +2,56 @@
 
 <PageTitle>sdmay26-40 - Weekly Reports</PageTitle>
 
+<MudContainer MaxWidth="MaxWidth.False" Class="mt-8">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Weekly Reports</MudText>
+
+    <MudGrid Class="mt-4">
+        <MudItem xs="12">
+            <MudPaper Class="pa-2">
+                <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_panelIndex" ActivePanelIndexChanged="OnTabChanged">
+                    @foreach (var report in _reports)
+                    {
+                        <MudTabPanel Text="@report.Title" />
+                    }
+                </MudTabs>
+            </MudPaper>
+        </MudItem>
+        <MudItem xs="12">
+                <MudPaper Class="pa-1" Style="height: 85vh;">
+                    <iframe src="@_selectedReportUrl" style="width: 100%; height: 1000px; border: none;"></iframe>
+                </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
+
 
 @code {
+    private string? _selectedReportUrl;
+    private List<Report> _reports = new();
+    private int _panelIndex = 0;
 
+    protected override void OnInitialized()
+    {
+        _reports = new List<Report>
+        {
+            new Report { Title = "Week 1 Report - 09/23/2025", Url = "reports/Week1.pdf" },
+        };
+
+        if (_reports.Any())
+        {
+            _selectedReportUrl = _reports.First().Url;
+        }
+    }
+
+    private void OnTabChanged(int index)
+    {
+        _panelIndex = index;
+        _selectedReportUrl = _reports[index].Url;
+    }
+
+    public class Report
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+    }
 }
