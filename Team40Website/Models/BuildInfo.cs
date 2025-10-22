@@ -2,6 +2,6 @@ namespace Team40Website.Models
 {
 public static class BuildInfo
 {
-public const string BuildTimestamp = "10/15/2025 11:10 AM";
+public const string BuildTimestamp = "10/22/2025 8:11 AM";
 }
 }
