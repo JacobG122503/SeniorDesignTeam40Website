@@ -6,6 +6,14 @@
     <MudNavLink Href="https://git.ece.iastate.edu/sd/sdmay26-40" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Filled.Code">Project Repository</MudNavLink>
     <MudNavLink Href="https://github.com/JacobG122503/SeniorDesignTeam40Website" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Filled.Web">Website Repository</MudNavLink>
 
+    <div @onmouseenter="@(() => projectManagementExpanded = true)" @onmouseleave="@(() => projectManagementExpanded = false)">
+        <MudNavGroup Title="Team Resources" Icon="@Icons.Material.Filled.Folder" @bind-Expanded="projectManagementExpanded">
+            <MudNavLink Href="https://ones.com/project/#/team/9Kxvd82g/project/U7YcDNencqxWqm6N/component/CnE12dzV/sprint/9dLksrEY/agilekanban/task/HYgr6NEmsfgmBUZP/0?isHideDialog=1" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Outlined.ViewKanban">Sprint Board</MudNavLink>
+            <MudNavLink Href="https://drive.google.com/drive/u/0/folders/1M63fRldx2oTCnfD3WRj88dJmBSads3Y4" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Filled.DriveFileMove">Google Drive</MudNavLink>
+            <MudNavLink Href="https://www.figma.com/design/h64AxJSn18YUsFqW8aL1vL/Force-Rack-App?node-id=2402-1883&p=f&t=aY0ejAPQnwR5sdZ2-0" target="_blank" rel="noopener noreferrer" Icon="@Icons.Material.Filled.DesignServices">Figma Design</MudNavLink>
+        </MudNavGroup>
+    </div>
+
     @if (IsDrawerOpen)
     {
         <div class="pa-2" style="position: absolute; bottom: 0; width: 100%;">
@@ -20,4 +28,5 @@
     public bool IsDrawerOpen { get; set; }
 
     private string buildDate = BuildInfo.BuildTimestamp;
+    private bool projectManagementExpanded = false;
 }
