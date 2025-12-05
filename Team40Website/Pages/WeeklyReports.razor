@@ -8,7 +8,8 @@
     <MudGrid Class="mt-4">
         <MudItem xs="12">
             <MudPaper Class="pa-2">
-                <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_panelIndex" ActivePanelIndexChanged="OnTabChanged">
+                <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_panelIndex"
+                    ActivePanelIndexChanged="OnTabChanged">
                     @foreach (var report in _reports)
                     {
                         <MudTabPanel Text="@report.Title" />
@@ -17,9 +18,9 @@
             </MudPaper>
         </MudItem>
         <MudItem xs="12">
-                <MudPaper Class="pa-1" Style="height: 85vh;">
-                    <iframe src="@_selectedReportUrl" style="width: 100%; height: 1000px; border: none;"></iframe>
-                </MudPaper>
+            <MudPaper Class="pa-1" Style="height: 85vh;">
+                <iframe src="@_selectedReportUrl" style="width: 100%; height: 1000px; border: none;"></iframe>
+            </MudPaper>
         </MudItem>
     </MudGrid>
 </MudContainer>
@@ -33,7 +34,7 @@
     protected override void OnInitialized()
     {
         _reports = new List<Report>
-        {
+            {
             new Report { Title = "Week 1 Report - 09/23/2025", Url = "weeklyReports/Week1.pdf" },
             new Report { Title = "Week 2 Report - 10/07/2025", Url = "weeklyReports/Week2.pdf" },
             new Report { Title = "Week 3 Report - 10/14/2025", Url = "weeklyReports/Week3.pdf" },
@@ -42,7 +43,8 @@
             new Report { Title = "Week 6 Report - 11/4/2025", Url = "weeklyReports/Week6.pdf" },
             new Report { Title = "Week 7 Report - 11/11/2025", Url = "weeklyReports/Week7.pdf" },
             new Report { Title = "Week 8 Report - 11/25/2025", Url = "weeklyReports/Week8.pdf" },
-        };
+            new Report { Title = "Week 9 Report - 12/2/2025", Url = "weeklyReports/Week9.pdf" },
+            };
 
         if (_reports.Any())
         {
