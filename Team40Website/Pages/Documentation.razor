@@ -1,31 +1,80 @@
-﻿@page "/documentation"
+@page "/documentation"
 
 <PageTitle>sdmay26-40 - Documentation</PageTitle>
 
-<MudText Typo="Typo.h3" GutterBottom="true">Project Documentation</MudText>
+<MudContainer MaxWidth="MaxWidth.False" Class="mt-8">
+    <MudText Typo="Typo.h3" Align="Align.Center" GutterBottom="true">Project Documentation</MudText>
 
-<MudText Typo="Typo.h4" GutterBottom="true">Final Design Document</MudText>
-<div class="d-flex justify-center">
-    <iframe src="/documentation/designDoc.docx.pdf" style="width: 70%; height: 80vh; border: none;"></iframe>
-</div>
-
-<MudDivider Class="my-6" />
-
-
-<MudText Typo="Typo.h4" GutterBottom="true">Final Presentation Slides</MudText>
-<div class="d-flex justify-center">
-    <iframe src="/documentation/facultySlides.pdf" style="width: 70%; height: 80vh; border: none;"></iframe>
-</div>
-
-<MudDivider Class="my-6" />
-
-
-<MudText Typo="Typo.h4" GutterBottom="true">Lightning Talk</MudText>
-<div class="d-flex justify-center">
-    <iframe src="/documentation/lightningTalk.pdf" style="width: 70%; height: 80vh; border: none;"></iframe>
-</div>
-
+    <MudGrid Class="mt-4">
+        <MudItem xs="12" md="3">
+            <MudPaper Elevation="1" Class="pa-2">
+                <MudNavMenu>
+                    <MudText Typo="Typo.h6" Class="px-4 py-2">Documents</MudText>
+                    <MudDivider Class="mb-2" />
+                    @for (int i = 0; i < _documents.Count; i++)
+                    {
+                        var index = i;
+                        var doc = _documents[i];
+                        <MudNavLink Active="@(_selectedTabIndex == index)" OnClick="@(() => OnDocumentSelected(index))">
+                            @doc.Title
+                        </MudNavLink>
+                    }
+                </MudNavMenu>
+            </MudPaper>
+        </MudItem>
+        
+        <MudItem xs="12" md="9">
+            <MudPaper Elevation="1" Class="pa-2" Style="height: 85vh; width: 100%;">
+                @{
+                    var selectedDoc = _documents[_selectedTabIndex];
+                }
+                @if (selectedDoc.IsPlaceholder)
+                {
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100%; text-align: center;">
+                        <MudIcon Icon="@Icons.Material.Filled.Pending" Style="font-size: 4rem;" Color="Color.Default" Class="mb-4" />
+                        <MudText Typo="Typo.h5" GutterBottom="true">@selectedDoc.Title</MudText>
+                        <MudText Typo="Typo.body1" Color="Color.Secondary">Coming soon.</MudText>
+                    </div>
+                }
+                else
+                {
+                    var iframeSrc = selectedDoc.Url.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) 
+                        ? $"{selectedDoc.Url}#navpanes=0" 
+                        : selectedDoc.Url;
+                    <iframe src="@iframeSrc" style="width: 100%; height: 100%; border: none; border-radius: 4px;"></iframe>
+                }
+            </MudPaper>
+        </MudItem>
+    </MudGrid>
+</MudContainer>
 
 @code {
+    private int _selectedTabIndex = 0;
+    private List<Document> _documents = new();
 
+    protected override void OnInitialized()
+    {
+        _documents = new List<Document>
+        {
+            new Document { Title = "Spring Final Design Document", IsPlaceholder = true },
+            new Document { Title = "Spring Final Presentation Slides", IsPlaceholder = true },
+            new Document { Title = "Demo Video", IsPlaceholder = true },
+            new Document { Title = "Final Poster", IsPlaceholder = true },
+            new Document { Title = "Fall Final Documentation", Url = "documentation/designDoc.docx.pdf", IsPlaceholder = false },
+            new Document { Title = "Fall Final Slides", Url = "documentation/facultySlides.pdf", IsPlaceholder = false },
+            new Document { Title = "Fall Lightning Talk", Url = "documentation/lightningTalk.pdf", IsPlaceholder = false }
+        };
+    }
+
+    private void OnDocumentSelected(int index)
+    {
+        _selectedTabIndex = index;
+    }
+
+    public class Document
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Url { get; set; } = string.Empty;
+        public bool IsPlaceholder { get; set; } = false;
+    }
 }
