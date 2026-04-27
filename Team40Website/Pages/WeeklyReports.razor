@@ -1,4 +1,4 @@
-﻿@page "/reports"
+@page "/reports"
 
 <PageTitle>sdmay26-40 - Weekly Reports</PageTitle>
 
@@ -7,34 +7,63 @@
 
     <MudGrid Class="mt-4">
         <MudItem xs="12">
-            <MudPaper Class="pa-2">
-                <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_panelIndex"
-                    ActivePanelIndexChanged="OnTabChanged">
-                    @foreach (var report in _reports)
-                    {
-                        <MudTabPanel Text="@report.Title" />
-                    }
-                </MudTabs>
-            </MudPaper>
+            <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_semesterTabIndex" ActivePanelIndexChanged="OnSemesterTabChanged">
+                <MudTabPanel Text="Fall 2025">
+                    <MudPaper Class="pa-2 mt-4" Elevation="0">
+                        <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_fallPanelIndex" ActivePanelIndexChanged="OnFallTabChanged">
+                            @foreach (var report in _fallReports)
+                            {
+                                <MudTabPanel Text="@report.Title" />
+                            }
+                        </MudTabs>
+                    </MudPaper>
+                </MudTabPanel>
+                <MudTabPanel Text="Spring 2026">
+                    <MudPaper Class="pa-2 mt-4" Elevation="0">
+                        <MudTabs Elevation="0" Rounded="true" Centered="true" ActivePanelIndex="_springPanelIndex" ActivePanelIndexChanged="OnSpringTabChanged">
+                            @foreach (var report in _springReports)
+                            {
+                                <MudTabPanel Text="@report.Title" />
+                            }
+                        </MudTabs>
+                    </MudPaper>
+                </MudTabPanel>
+            </MudTabs>
         </MudItem>
         <MudItem xs="12">
             <MudPaper Class="pa-1" Style="height: 85vh;">
-                <iframe src="@_selectedReportUrl" style="width: 100%; height: 1000px; border: none;"></iframe>
+                @if (!string.IsNullOrEmpty(_selectedReportUrl))
+                {
+                    <iframe src="@_selectedReportUrl" style="width: 100%; height: 1000px; border: none;"></iframe>
+                }
             </MudPaper>
         </MudItem>
     </MudGrid>
 </MudContainer>
 
-
 @code {
     private string? _selectedReportUrl;
-    private List<Report> _reports = new();
-    private int _panelIndex = 0;
+    private List<Report> _springReports = new();
+    private List<Report> _fallReports = new();
+    
+    private int _semesterTabIndex = 1; // Spring 2026 is index 1, making it selected by default
+    private int _springPanelIndex = 0;
+    private int _fallPanelIndex = 0;
 
     protected override void OnInitialized()
     {
-        _reports = new List<Report>
-            {
+        _springReports = new List<Report>
+        {
+            new Report { Title = "Status Report 1", Url = "weeklyReports/spring/sdmay26-40 4920 Status Report 1.pdf" },
+            new Report { Title = "Status Report 2", Url = "weeklyReports/spring/sdmay26-40 4920 Status Report 2.pdf" },
+            new Report { Title = "Status Report 3", Url = "weeklyReports/spring/sdmay26-40 4920 Status Report 3.pdf" },
+            new Report { Title = "Status Report 4", Url = "weeklyReports/spring/sdmay26-40 4920 Status Report 4.pdf" },
+            new Report { Title = "Status Report 5", Url = "weeklyReports/spring/sdmay26-40 4920 Status Report 5.pdf" },
+            new Report { Title = "Status Report 6", Url = "weeklyReports/spring/sdmay26-40 4920 Status Report 6.pdf" }
+        };
+
+        _fallReports = new List<Report>
+        {
             new Report { Title = "Week 1 Report - 09/23/2025", Url = "weeklyReports/Week1.pdf" },
             new Report { Title = "Week 2 Report - 10/07/2025", Url = "weeklyReports/Week2.pdf" },
             new Report { Title = "Week 3 Report - 10/14/2025", Url = "weeklyReports/Week3.pdf" },
@@ -43,19 +72,44 @@
             new Report { Title = "Week 6 Report - 11/4/2025", Url = "weeklyReports/Week6.pdf" },
             new Report { Title = "Week 7 Report - 11/11/2025", Url = "weeklyReports/Week7.pdf" },
             new Report { Title = "Week 8 Report - 11/25/2025", Url = "weeklyReports/Week8.pdf" },
-            new Report { Title = "Week 9 Report - 12/2/2025", Url = "weeklyReports/Week9.pdf" },
-            };
+            new Report { Title = "Week 9 Report - 12/2/2025", Url = "weeklyReports/Week9.pdf" }
+        };
 
-        if (_reports.Any())
+        if (_springReports.Any())
         {
-            _selectedReportUrl = _reports.First().Url;
+            _selectedReportUrl = _springReports.First().Url;
         }
     }
 
-    private void OnTabChanged(int index)
+    private void OnSemesterTabChanged(int index)
     {
-        _panelIndex = index;
-        _selectedReportUrl = _reports[index].Url;
+        _semesterTabIndex = index;
+        if (index == 0) // Fall
+        {
+            _selectedReportUrl = _fallReports[_fallPanelIndex].Url;
+        }
+        else // Spring
+        {
+            _selectedReportUrl = _springReports[_springPanelIndex].Url;
+        }
+    }
+
+    private void OnSpringTabChanged(int index)
+    {
+        _springPanelIndex = index;
+        if (_semesterTabIndex == 1)
+        {
+            _selectedReportUrl = _springReports[index].Url;
+        }
+    }
+
+    private void OnFallTabChanged(int index)
+    {
+        _fallPanelIndex = index;
+        if (_semesterTabIndex == 0)
+        {
+            _selectedReportUrl = _fallReports[index].Url;
+        }
     }
 
     public class Report
