@@ -1,4 +1,4 @@
-﻿@page "/"
+@page "/"
 
 <PageTitle>sdmay26-40 - Home</PageTitle>
 
@@ -7,35 +7,21 @@
         <MudText Typo="Typo.h4" GutterBottom="true">Project Overview</MudText>
 
         <MudText Class="mb-3">
-            Our team is partnering with Strength Technologies LLC to expand their innovative "Force Rack" technology
-            beyond the weight
-            room and into a fun, interactive setting. The current Force Rack uses a barbell with load cells to convert a
-            user's
-            isometric force into digital data for strength training exercises. Our mission is to transform this hardware
-            into an
-            engaging, arcade-style game that challenges users with entertaining physical contests.
+            Our team has partnered with Strength Technologies LLC to transform their innovative "Force Rack" technology from a specialized weight-room training tool into a fully functional, commercial-style arcade experience. By harnessing the Force Rack's load cell technology—which converts a user's isometric physical force into digital data—we have designed and built a standalone, multi-game arcade cabinet driven entirely by physical exertion.
         </MudText>
+
+        <MudText Class="mb-3">
+            This project requires a robust blend of application design, embedded systems programming, and hardware integration to deliver a production-ready arcade machine. Key technical achievements include:
+        </MudText>
+
+        <ul style="padding-left: 20px; margin-bottom: 16px;">
+            <li><MudText Class="mb-1"><strong>Unified Arcade Ecosystem:</strong> A custom-built software suite and launcher that allows users to seamlessly navigate and play a variety of engaging, physical video games.</MudText></li>
+            <li><MudText Class="mb-1"><strong>Comprehensive Hardware Integration:</strong> Processing real-time physical data by bridging Arduino-driven load cells with a central computer. The system integrates traditional arcade controls, custom LED lighting feedback, and commercial payment hardware.</MudText></li>
+            <li><MudText Class="mb-1"><strong>Persistent User Experience:</strong> A shared services architecture that handles real-time sensor polling, centralized game settings, and persistent local leaderboards to drive competition.</MudText></li>
+        </ul>
 
         <MudText>
-            This project will require a blend of application design, embedded systems programming, and PCB design to
-            develop a hardware proof of concept
-            with supporting firmware. A key part of our work will be creating compelling ways to visualize user data and
-            interact
-            with the device. Using resources provided by the client, including the existing code base and hardware, we
-            will
-            deliver a fully working prototype by the end of the two semesters that successfully converts the True Force
-            Rack
-            into a complete arcade experience.
+            By the end of this project, we will deliver a complete, highly engaging arcade cabinet that proves the exciting potential of physical, force-based gaming and successfully expands the True Force technology into the interactive entertainment market.
         </MudText>
-
-        <br><br>
-
-        <div style="text-align: center;">
-            <video width="100%" autoplay loop muted playsinline
-                style="max-width: 500px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.3);">
-                <source src="rackVid.mp4" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
     </MudPaper>
 </MudContainer>
