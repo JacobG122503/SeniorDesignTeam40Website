@@ -38,10 +38,30 @@
                 }
                 else
                 {
-                    var iframeSrc = selectedDoc.Url.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) 
-                        ? $"{selectedDoc.Url}#navpanes=0" 
-                        : selectedDoc.Url;
-                    <iframe src="@iframeSrc" style="width: 100%; height: 100%; border: none; border-radius: 4px;"></iframe>
+                    if (selectedDoc.Url.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <div style="width: 100%; height: 100%; overflow: auto; border-radius: 4px;">
+                            <img src="@selectedDoc.Url" style="width: 100%; height: auto; display: block;" alt="@selectedDoc.Title" />
+                        </div>
+                    }
+                    else if (selectedDoc.Url.EndsWith(".mp4", StringComparison.OrdinalIgnoreCase) || selectedDoc.Url.EndsWith(".mov", StringComparison.OrdinalIgnoreCase))
+                    {
+                        <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center; background-color: #000; border-radius: 4px;">
+                            <video controls style="max-width: 100%; max-height: 100%;">
+                                <source src="@selectedDoc.Url" />
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+                    }
+                    else
+                    {
+                        var iframeSrc = selectedDoc.Url.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) 
+                            ? $"{selectedDoc.Url}#navpanes=0" 
+                            : selectedDoc.Url;
+                        <object data="@iframeSrc" type="application/pdf" style="width: 100%; height: 100%; border: none; border-radius: 4px;">
+                            <iframe src="@iframeSrc" style="width: 100%; height: 100%; border: none; border-radius: 4px;"></iframe>
+                        </object>
+                    }
                 }
             </MudPaper>
         </MudItem>
@@ -56,10 +76,10 @@
     {
         _documents = new List<Document>
         {
-            new Document { Title = "Spring Final Design Document", IsPlaceholder = true },
-            new Document { Title = "Spring Final Presentation Slides", IsPlaceholder = true },
-            new Document { Title = "Demo Video", IsPlaceholder = true },
-            new Document { Title = "Final Poster", IsPlaceholder = true },
+            new Document { Title = "Spring Final Design Document", Url = "documentation/finalDesigndoc.docx.pdf", IsPlaceholder = false },
+            new Document { Title = "Spring Final Presentation Slides", Url = "documentation/finalSlides.pdf", IsPlaceholder = false },
+            new Document { Title = "Spring Demo Video", Url = "demoVid.mp4", IsPlaceholder = false },
+            new Document { Title = "Spring Final Poster", Url = "documentation/poster.png", IsPlaceholder = false  },
             new Document { Title = "Fall Final Documentation", Url = "documentation/designDoc.docx.pdf", IsPlaceholder = false },
             new Document { Title = "Fall Final Slides", Url = "documentation/facultySlides.pdf", IsPlaceholder = false },
             new Document { Title = "Fall Lightning Talk", Url = "documentation/lightningTalk.pdf", IsPlaceholder = false }
